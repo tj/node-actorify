@@ -5,7 +5,7 @@ var net = require('net');
 
 var n = 0;
 var ops = 5000;
-var bytes = 1024;
+var bytes = 32 * 1024;
 var prev = start = Date.now();
 var results = [];
 

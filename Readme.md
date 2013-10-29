@@ -145,6 +145,16 @@ actor.send('get user', 'tobi', function(err, user){
   through: 626.64 mb/s
 ```
 
+ With __32kb__ messages:
+
+```
+      min: 7,032 ops/s
+     mean: 14,269 ops/s
+   median: 23,584 ops/s
+    total: 86,329 ops in 6.05s
+  through: 445.91 mb/s
+```
+
 ## Todo
 
   - timeouts
