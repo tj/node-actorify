@@ -144,6 +144,7 @@ actor.send('get user', 'tobi', function(err, user){
 
   - timeouts
   - debug support
+  - optimize for throughput
   - emit "actor" stream for logging etc
 
 # License
