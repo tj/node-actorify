@@ -4,6 +4,11 @@
   Turn any duplex stream into an actor. Built on the the [AMP](https://github.com/visionmedia/node-amp) protocol
   for opaque binary and javascript argument support.
 
+  Actors are similar to traditional RPC however they are isolated units of communication, an actor receives and sends zero or more messages to and from 
+  its peer with bi-directional messaging. Typical RPC is done at the process-level,
+  meaning in order to work with data coupled with an identifier such as a user id 
+  that the id must be passed each request, whereas an actor may retain this state.
+
 ## Features
 
  - fast
