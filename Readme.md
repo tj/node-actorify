@@ -105,7 +105,7 @@ actor.send('get user', 'tobi', function(err, user){
 
 ## Benchmarks
 
-  Benchmarks on my first generation MBP Retina.
+  Benchmarks on my first generation MBP Retina with node 0.11.x.
   Real results are likely higher since having the 
   producer on the same machine as the consumer makes
   results misleading.
