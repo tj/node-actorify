@@ -22,6 +22,8 @@ $ npm install actorify
 
 ## Example
 
+  Simple hello world PING/PONG example:
+
 ```js
 var net = require('net');
 var actorify = require('actorify');
