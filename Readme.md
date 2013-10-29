@@ -94,6 +94,15 @@ setInterval(function(){
 }, 500);
 ```
 
+  You may also associate callbacks with an actor message, effectively
+  turning it into a traditional RPC call:
+
+```js
+actor.send('get user', 'tobi', function(err, user){
+  
+});
+```
+
 ## Benchmarks
 
   Benchmarks on my first generation MBP Retina.
