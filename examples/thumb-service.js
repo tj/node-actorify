@@ -1,9 +1,9 @@
 
 var net = require('net');
-var cell = require('..');
+var actorify = require('..');
 
 net.createServer(function(sock){
-  var actor = cell(sock);
+  var actor = actorify(sock);
 
   var img = new Buffer('faux data');
 

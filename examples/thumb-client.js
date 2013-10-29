@@ -1,10 +1,10 @@
 
 var net = require('net');
-var cell = require('..');
+var actorify = require('..');
 
 setInterval(function(){
   var sock = net.connect(3000);
-  var actor = cell(sock);
+  var actor = actorify(sock);
 
   console.log('send image for thumbs');
   var img = new Buffer('faux image');
