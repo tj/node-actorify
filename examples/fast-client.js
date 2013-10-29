@@ -4,7 +4,7 @@ var actorify = require('..');
 
 var sock = net.connect(3000, 'localhost');
 var actor = actorify(sock);
-var msg = new Buffer(Array(32 * 1024).join('a'));
+var msg = new Buffer(Array(64).join('a'));
 
 function next() {
   var n = 50;

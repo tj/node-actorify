@@ -115,7 +115,7 @@ actor.send('get user', 'tobi', function(err, user){
   producer on the same machine as the consumer makes
   results misleading.
 
-  With __10b__ messages:
+  With __64b__ messages:
 
 ```
       min: 56,818 ops/s
