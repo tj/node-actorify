@@ -26,7 +26,9 @@
 $ npm install actorify
 ```
 
-## Example
+## Guide
+
+### Example
 
   Simple hello world PING/PONG example:
 
@@ -109,7 +111,7 @@ actor.send('get user', 'tobi', function(err, user){
 });
 ```
 
-## Timeouts
+### Timeouts
 
   When performing a request you may optionally timeout the response,
   after which an `Error` will be passed to the callback and any subsequent
