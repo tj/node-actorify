@@ -4,6 +4,18 @@ var assert = require('assert');
 var actorify = require('..');
 var net = require('net');
 
+describe('Actor', function(){
+  it('should emit "actor" for visibility', function(done){
+    actorify.once('actor', function(actor){
+      assert('Actor' == actor.constructor.name);
+      done();
+    });
+
+    var stream = new Stream;
+    var actor = actorify(stream);
+  })
+})
+
 describe('Actor#send()', function(){
   describe('with no message name', function(){
     it('should throw an error', function(done){

@@ -35,6 +35,7 @@ function Actor(stream) {
   this.stream = stream;
   this.callbacks = {};
   this.ids = 0;
+  Actor.emit('actor', this);
 }
 
 /**
@@ -42,6 +43,7 @@ function Actor(stream) {
  */
 
 Actor.prototype.__proto__ = Emitter.prototype;
+Actor.__proto__ = Emitter.prototype;
 
 /**
  * Inspect implementation.
