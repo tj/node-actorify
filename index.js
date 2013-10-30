@@ -86,8 +86,7 @@ Actor.prototype.onmessage = function(buf){
   if (isId(args[0])) {
     var id = args.shift();
     args.push(function(){
-      var args = ['_reply_', id].concat(slice.call(arguments));
-      self.send.apply(self, args);
+      self.send.apply(self, reply(id, arguments));
     });
   }
 
@@ -139,6 +138,28 @@ Actor.prototype.send = function(){
     }
   }
 };
+
+/**
+ * Return a reply message for `id` and `args`.
+ *
+ * @param {String} id
+ * @param {Array} args
+ * @return {Array}
+ * @api private
+ */
+
+function reply(id, args) {
+  var msg = new Array(2 + args.length);
+
+  msg[0] = '_reply_';
+  msg[1] = id;
+
+  for (var i = 0; i < args.length; i++) {
+    msg[i + 2] = args[i];
+  }
+
+  return msg;
+}
 
 /**
  * ID argument.
