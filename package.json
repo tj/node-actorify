@@ -12,7 +12,8 @@
     "erlang"
   ],
   "dependencies": {
-    "amp": "0.1.0"
+    "amp": "0.1.0",
+    "ms": "~0.6.1"
   },
   "devDependencies": {
     "mocha": "*",

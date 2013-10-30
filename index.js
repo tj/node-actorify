@@ -5,6 +5,7 @@
 
 var Emitter = require('events').EventEmitter;
 var fmt = require('util').format;
+var parse = require('ms');
 var amp = require('amp');
 
 /**
@@ -85,9 +86,11 @@ Actor.prototype.onmessage = function(args){
 /**
  * Send message.
  *
+ * TODO: clean up... return a Message etc
+ *
  * @param {String} msg
  * @param {Mixed} ...
- * @return {Type}
+ * @return {Object}
  * @api public
  */
 
@@ -95,10 +98,19 @@ Actor.prototype.send = function(){
   if ('string' != typeof arguments[0]) throw new Error('missing message name');
   var args = slice.call(arguments);
   var last = args[args.length - 1];
+  var timer;
 
   if ('function' == typeof last) {
     var id = 'i:' + this.ids++;
-    this.callbacks[id] = args.pop();
+    var fn = args.pop();
+    
+    function callback(){
+      callback = function(){};
+      clearTimeout(timer);
+      fn.apply(this, arguments);
+    }
+
+    this.callbacks[id] = callback;
     args.unshift(new Buffer(id));
   }
 
@@ -108,6 +120,17 @@ Actor.prototype.send = function(){
 
   var buf = amp.encode(args);
   this.stream.write(buf);
+
+  return {
+    timeout: function(ms){
+      if ('string' == typeof ms) ms = parse(ms);
+      timer = setTimeout(function(){
+        var err = new Error('message response timeout exceeded');
+        err.timeout = ms;
+        callback(err);
+      }, ms);
+    }
+  }
 };
 
 /**
@@ -126,9 +149,7 @@ function pack(arg) {
   if (Buffer.isBuffer(arg)) return arg;
 
   // json
-  arg = JSON.stringify(arg);
-  arg = 'j:' + arg;
-  
+  arg = 'j:' + JSON.stringify(arg);
   return new Buffer(arg);
 }
 

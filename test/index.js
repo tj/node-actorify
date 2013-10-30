@@ -133,6 +133,61 @@ describe('Actor#send()', function(){
     })
   })
 
+  describe('with a timeout', function(){
+    describe('when exceeded', function(){
+      it('should pass an error', function(done){
+        var stream = new Stream;
+        var actor = actorify(stream);
+
+        actor.on('hello', function(fn){
+
+        });
+
+        actor.send('hello', function(err){
+          err.timeout.should.equal(50);
+          err.message.should.equal('message response timeout exceeded');
+          done();
+        }).timeout(50);
+      })
+
+      it('should ignore responses', function(done){
+        var stream = new Stream;
+        var actor = actorify(stream);
+
+        actor.on('hello', function(fn){
+          setTimeout(function(){
+            fn(null, 'world');
+          }, 100);
+        });
+
+        actor.send('hello', function(err){
+          err.timeout.should.equal(50);
+          err.message.should.equal('message response timeout exceeded');
+          done();
+        }).timeout(50);
+      })
+    })
+
+    describe('otherwise', function(){
+      it('should cancel the timeout', function(done){
+        var stream = new Stream;
+        var actor = actorify(stream);
+
+        actor.on('hello', function(fn){
+          setTimeout(function(){
+            fn(null, 'world');
+          }, 10);
+        });
+
+        actor.send('hello', function(err, res){
+          assert(!err);
+          res.should.equal('world');
+          done();
+        }).timeout(150);
+      })
+    })
+  })
+
   it('should support multiple messages', function(done){
     var stream = new Stream;
     var actor = actorify(stream);

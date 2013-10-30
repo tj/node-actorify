@@ -108,6 +108,22 @@ actor.send('get user', 'tobi', function(err, user){
 });
 ```
 
+## Timeouts
+
+  When performing a request you may optionally timeout the response,
+  after which an `Error` will be passed to the callback and any subsequent
+  response will be ignored.
+
+  The argument may be numeric milliseconds or represented as a string such
+  as "5s", "10m", "1 minute", "30 seconds", etc. By default there is __no__
+  timeout.
+
+```js
+actor.send('hello', function(err){
+  
+}).timeout('5s');
+```
+
 ## Benchmarks
 
   Benchmarks on my first generation MBP Retina with node 0.11.x.
@@ -157,7 +173,6 @@ actor.send('get user', 'tobi', function(err, user){
 
 ## Todo
 
-  - timeouts
   - debug support
   - optimize for throughput
   - emit "actor" stream for logging etc
