@@ -16,6 +16,14 @@ describe('Actor', function(){
   })
 })
 
+describe('Actor#inspect()', function(){
+  it('should inspect the actor', function(){
+    var stream = new Stream;
+    var actor = actorify(stream);
+    actor.inspect().should.equal('<Actor id=2 callbacks=0>');
+  })
+})
+
 describe('Actor#send()', function(){
   describe('with no message name', function(){
     it('should throw an error', function(done){

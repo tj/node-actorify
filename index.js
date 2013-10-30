@@ -15,6 +15,12 @@ var amp = require('amp');
 var slice = [].slice;
 
 /**
+ * Actor ids.
+ */
+
+var ids = 0;
+
+/**
  * Expose `Actor`.
  */
 
@@ -35,6 +41,7 @@ function Actor(stream) {
   this.stream = stream;
   this.callbacks = {};
   this.ids = 0;
+  this.id = ++ids;
   Actor.emit('actor', this);
 }
 
@@ -51,7 +58,7 @@ Actor.__proto__ = Emitter.prototype;
 
 Actor.prototype.inspect = function(){
   var cbs = Object.keys(this.callbacks).length;
-  return fmt('<Actor callbacks=%d>', cbs);
+  return fmt('<Actor id=%d callbacks=%d>', this.id, cbs);
 };
 
 /**
