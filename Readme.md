@@ -14,6 +14,7 @@
  - fast
  - clean api
  - json support
+ - request timeouts
  - opaque binary support
  - simple flexible protocol
  - bi-directional messaging
