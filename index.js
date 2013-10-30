@@ -4,6 +4,7 @@
  */
 
 var Emitter = require('events').EventEmitter;
+var Message = require('amp-message');
 var fmt = require('util').format;
 var parse = require('ms');
 var amp = require('amp');
@@ -65,8 +66,9 @@ Actor.prototype.inspect = function(){
  * Handle message.
  */
 
-Actor.prototype.onmessage = function(args){
-  var args = args.map(unpack);
+Actor.prototype.onmessage = function(buf){
+  var msg = new Message(buf);
+  var args = msg.args;
   var self = this;
 
   // reply message, invoke
@@ -123,12 +125,8 @@ Actor.prototype.send = function(){
     args.unshift(new Buffer(id));
   }
 
-  for (var i = 0; i < args.length; i++) {
-    args[i] = pack(args[i]);
-  }
-
-  var buf = amp.encode(args);
-  this.stream.write(buf);
+  var msg = new Message(args);
+  this.stream.write(msg.toBuffer());
 
   return {
     timeout: function(ms){
@@ -141,61 +139,6 @@ Actor.prototype.send = function(){
     }
   }
 };
-
-/**
- * Pack `arg`.
- *
- * @param {Mixed} arg
- * @return {Buffer}
- * @api private
- */
-
-function pack(arg) {
-  // string
-  if ('string' == typeof arg) return new Buffer('s:' + arg);
-
-  // blob
-  if (Buffer.isBuffer(arg)) return arg;
-
-  // json
-  arg = 'j:' + JSON.stringify(arg);
-  return new Buffer(arg);
-}
-
-/**
- * Unpack `arg`.
- *
- * @param {Buffer} arg
- * @return {Mixed}
- * @api public
- */
-
-function unpack(arg) {
-  // json
-  if (isJSON(arg)) return JSON.parse(arg.slice(2));
-
-  // string
-  if (isString(arg)) return arg.slice(2).toString();
- 
-  // blob
-  return arg;
-}
-
-/**
- * String argument.
- */
-
-function isString(arg) {
-  return 115 == arg[0] && 58 == arg[1];
-}
-
-/**
- * JSON argument.
- */
-
-function isJSON(arg) {
-  return 106 == arg[0] && 58 == arg[1];
-}
 
 /**
  * ID argument.
