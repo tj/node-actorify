@@ -54,7 +54,6 @@ var actor = actorify(sock);
 
 setInterval(function(){
   actor.send('ping');
-
   actor.once('pong', function(){
     console.log('PONG');
   });
@@ -122,7 +121,7 @@ actor.send('get user', 'tobi', function(err, user){
   timeout.
 
 ```js
-actor.send('hello', function(err){
+actor.send('hello', function(err, res){
   
 }).timeout('5s');
 ```
