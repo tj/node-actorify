@@ -173,12 +173,8 @@ actor.send('hello', function(err, res){
   through: 445.91 mb/s
 ```
 
-## Todo
-
-  - debug support
-  - optimize for throughput
-  - emit "actor" stream for logging etc
 
 # License
 
   MIT
+  
