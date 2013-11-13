@@ -126,6 +126,11 @@ actor.send('hello', function(err, res){
 }).timeout('5s');
 ```
 
+### Error Handling
+
+  Stream errors are _not_ handled, you must add an "error" listener
+  to the `stream` passed to actorify().
+
 ## Benchmarks
 
   Benchmarks on my first generation MBP Retina with node 0.11.x.
