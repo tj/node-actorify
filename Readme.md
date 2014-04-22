@@ -1,4 +1,3 @@
-
 # actorify
 
   Turn any duplex stream into an actor. Built on the the [AMP](https://github.com/visionmedia/node-amp) protocol
@@ -107,6 +106,12 @@ setInterval(function(){
 ```js
 actor.send('get user', 'tobi', function(err, user){
   
+});
+
+actor.on('get user', function(name, reply){
+  getUser(name, function(err, user){
+    reply(err, user);
+  });
 });
 ```
 
