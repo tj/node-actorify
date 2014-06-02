@@ -77,7 +77,8 @@ Actor.prototype.onmessage = function(buf){
     args.shift();
     var id = args.shift().toString();
     var fn = this.callbacks[id];
-    fn.apply(null, args);
+    delete this.callbacks[id];
+    if (fn) fn.apply(null, args);
     return;
   }
 
@@ -113,7 +114,7 @@ Actor.prototype.send = function(){
   if ('function' == typeof last) {
     var id = 'i:' + this.ids++;
     var fn = args.pop();
-    
+
     function callback(){
       callback = function(){};
       clearTimeout(timer);
