@@ -1,6 +1,6 @@
 {
   "name": "actorify",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "repository": "visionmedia/node-actorify",
   "description": "Turn any duplex stream into an actor",
   "keywords": [
