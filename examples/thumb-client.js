@@ -7,7 +7,7 @@ setInterval(function(){
   var actor = actorify(sock);
 
   console.log('send image for thumbs');
-  var img = new Buffer('faux image');
+  var img = Buffer.from('faux image');
   actor.send('image thumbnails', img, ['150x150', '300x300']);
 
   actor.on('thumb', function(size, img){

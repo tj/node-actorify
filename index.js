@@ -122,7 +122,7 @@ Actor.prototype.send = function(){
     }
 
     this.callbacks[id] = callback;
-    args.unshift(new Buffer(id));
+    args.unshift(Buffer.from(id));
   }
 
   var msg = new Message(args);

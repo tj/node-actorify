@@ -74,12 +74,12 @@ var actorify = require('actorify');
 net.createServer(function(sock){
   var actor = actorify(sock);
 
-  var img = new Buffer('faux data');
+  var img = Buffer.from('faux data');
 
   actor.on('image thumbnails', function(img, sizes){
     console.log('%s byte image -> %s', img.length, sizes.join(', '));
     sizes.forEach(function(size){
-      actor.send('thumb', size, new Buffer('thumb data'));
+      actor.send('thumb', size, Buffer.from('thumb data'));
     });
   });
 }).listen(3000);
@@ -91,7 +91,7 @@ setInterval(function(){
   var actor = actorify(sock);
 
   console.log('send image for thumbs');
-  var img = new Buffer('faux image');
+  var img = Buffer.from('faux image');
   actor.send('image thumbnails', img, ['150x150', '300x300']);
 
   actor.on('thumb', function(size, img){
