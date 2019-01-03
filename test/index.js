@@ -63,7 +63,7 @@ describe('Actor#send()', function(){
         done();
       });
 
-      actor.send('thumb', '150x150', new Buffer('data'));
+      actor.send('thumb', '150x150', Buffer.from('data'));
     })
   })
 
@@ -149,7 +149,7 @@ describe('Actor#send()', function(){
         done();
       });
 
-      actor.send('hello', new Buffer('world'));
+      actor.send('hello', Buffer.from('world'));
     })
   })
 
